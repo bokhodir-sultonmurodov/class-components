@@ -18,10 +18,10 @@ export default class Todos extends Component {
     e.preventDefault()
     const newUser = {
         id: Date.now(),
-        fname:this.state.fname,
-        lname:this.state.lname,
-        email:this.state.email,
-        password:this.state.password
+        fname:this.state.fname.trim(),
+        lname:this.state.lname.trim(),
+        email:this.state.email.trim(),
+        password:this.state.password.trim()
     }
     this.setState({
         data: [...this.state.data, newUser],
