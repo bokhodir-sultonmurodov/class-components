@@ -16,12 +16,16 @@ export default class Todos extends Component {
 
  handleSubmit = (e) => {
     e.preventDefault()
+    if(!this.state.fname.trim()) return null
+    if(!this.state.lname.trim()) return null
+    if(!this.state.email.trim()) return null
+    if(!this.state.password.trim()) return null
     const newUser = {
         id: Date.now(),
-        fname:this.state.fname.trim(),
-        lname:this.state.lname.trim(),
-        email:this.state.email.trim(),
-        password:this.state.password.trim()
+        fname:this.state.fname,
+        lname:this.state.lname,
+        email:this.state.email,
+        password:this.state.password
     }
     this.setState({
         data: [...this.state.data, newUser],
