@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 
 export default class Todos extends Component {
     constructor() {
@@ -15,28 +15,57 @@ export default class Todos extends Component {
     }
 
  handleSubmit = (e) => {
-    e.preventDefault()
-    if(!this.state.fname.trim()) return null
-    if(!this.state.lname.trim()) return null
-    if(!this.state.email.trim()) return null
-    if(!this.state.password.trim()) return null
-    const newUser = {
-        id: Date.now(),
-        fname:this.state.fname,
-        lname:this.state.lname,
-        email:this.state.email,
-        password:this.state.password
+    e.preventDefault();
+
+    if (!this.state.fname.trim()) return;
+    if (!this.state.lname.trim()) return;
+    if (!this.state.email.trim()) return;
+    if (!this.state.password.trim()) return;
+
+    if (this.state.editId) {
+        const updatedData = this.state.data.map((item) => {
+            if (item.id === this.state.editId) {
+                return {
+                    ...item,
+                    fname: this.state.fname,
+                    lname: this.state.lname,
+                    email: this.state.email,
+                    password: this.state.password,
+                };
+            }
+            return item;
+        });
+
+        this.setState({
+            data: updatedData,
+            fname: "",
+            lname: "",
+            email: "",
+            password: "",
+            showPopup: false,
+            editId: null,
+        });
+    } else {
+        const newUser = {
+            id: Date.now(),
+            fname: this.state.fname,
+            lname: this.state.lname,
+            email: this.state.email,
+            password: this.state.password,
+        };
+
+        this.setState({
+            data: [...this.state.data, newUser],
+            fname: "",
+            lname: "",
+            email: "",
+            password: "",
+            showPopup: false,
+            editId: null,
+        });
     }
-    this.setState({
-        data: [...this.state.data, newUser],
-        fname: "",
-        lname: "",
-        email: "",
-        password: "",
-        showPopup: false,
-        editId:null
-    })
-}
+};
+
 
   handleDelete = (id) => {
     this.setState({data: this.state.data.filter((item=> item.id !== id))})    
